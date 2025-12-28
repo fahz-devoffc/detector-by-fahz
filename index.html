@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Link & File Detector</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;background:#f3f4f6}
+.container{max-width:600px;margin:80px auto;background:#fff;padding:25px;border-radius:10px}
+input,button{width:100%;padding:12px;margin-top:10px}
+button{background:#111827;color:#fff;border:none}
+.result{margin-top:20px;padding:15px;display:none}
+.safe{background:#d1fae5}.danger{background:#fee2e2}.warning{background:#fffbeb}
+</style>
+</head>
+<body>
+<div class="container">
+<h2>Link & File Detector</h2>
+<input id="urlInput" placeholder="Masukkan link">
+<button onclick="scanURL()">Scan Link</button>
+<div id="result" class="result"></div>
+</div>
+<script>
+function showResult(c,t){const r=document.getElementById("result");r.className="result "+c;r.innerHTML=t;r.style.display="block"}
+async function scanURL(){
+showResult("warning","Scanning...");
+const res=await fetch("/api/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:document.getElementById("urlInput").value})});
+const d=await res.json();
+if(d.malicious>0||d.suspicious>0)showResult("danger","BERBAHAYA");else showResult("safe","AMAN");
+}
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@ button{background:#111827;color:#fff;border:none}
 </head>
 <body>
 <div class="container">
-<h2>Free Tools Link Detector BY Fahz-Dev</h2>
+<h2>Free Tools Link Detector BY Fahz-Dev [Update]</h2>
 <input id="urlInput" placeholder="Masukkan link">
 <button onclick="scanURL()">Scan Link</button>
 <div id="result" class="result"></div>
@@ -26,7 +26,7 @@ async function scanURL(){
 showResult("warning","Scanning...");
 const res=await fetch("/api/scan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({value:document.getElementById("urlInput").value})});
 const d=await res.json();
-if(d.malicious>0||d.suspicious>0)showResult("danger","BERBAHAYA VIRUS NIH");else showResult("safe","AMAN");
+if(d.malicious>0||d.suspicious>0)showResult("danger","BERBAHAYA VIRUS NIH");else showResult("safe","SAFE");
 }
 </script>
 </body>
